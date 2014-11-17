@@ -1,0 +1,289 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Auth Demo</title>
+    
+    <script type="text/javascript" charset="utf-8" src="js/phonegap-1.2.0.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/index.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script language="javascript" type="text/javascript" src="jquery.jqplot.min.js"></script>
+	<link class="include" rel="stylesheet" type="text/css" href="css/jquery.jqplot.min.css" />
+	
+
+</head>
+
+<body>
+    
+<div id="loginPage" data-role="page">
+
+    <div data-role="header">
+        <h1>Decision Support System</h1>
+    </div>
+	
+	
+
+    <div data-role="content">    
+
+        <form id="loginForm">
+        <div data-role="fieldcontain" class="ui-hide-label">
+            <input type="text" name="username" id="username" value="" placeholder="Username" />
+        </div>
+
+        <div data-role="fieldcontain" class="ui-hide-label">
+            <input type="password" name="password" id="password" value="" placeholder="Password" />
+        </div>
+
+        <input onClick="handleLogin()" type="submit" value="Login" id="submitButton">
+		</form>
+		<p id="test"></p>
+        <input type="button" onClick='changePage("#Consumption");' value="TEST"></a>
+    </div>
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; UNO Civil & Eng</h4>
+    </div>
+
+</div>
+
+
+
+<div data-role="page" data-theme="b" id="Consumption">
+        <div data-role="header" style="overflow:hidden;">
+			<h1>World Ports</h1>
+			<a href="#" data-icon="gear" class="ui-btn-right">Options</a>
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#">Consumption</a></li>
+					<li><a href="#Emissions">Emissions</a></li>
+					<li><a href="#Water">Water Discharge</a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="content">
+			<div data-role="fieldcontain">
+				<label for="port-name" class="select">Port Name</label>
+				<select name="port-name" id="port-name">
+					<option value="A">Port A</option>
+					<option value="B">Port B</option>
+					<option value="C">Port C</option>
+					<option value="D">Port D</option>
+				</select>
+				<label for="category" class="select">Category</label>
+				<select name="category" id="category">
+					<option value="Electricity">Electricity</option>
+					<option value="Water">Water</option>
+					<option value="Diesel">Diesel</option>
+					<option value="Gasoline">Gasoline</option>
+				</select>
+				<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<input type="date">
+					</div>
+					<div class="ui-block-b">
+						<input type="date">
+					</div>
+				</div>
+				<div class="ui-grid-b" data-role="fieldcontain" align="center">
+					<fieldset data-role="controlgroup" data-type="horizontal" >
+						<div class="ui-block-a">
+							<input type="radio" name="radio-chart-type" id="bar-radio" value="bar" checked="checked" />
+							<label for="bar-radio">Bar</label>
+
+							<input type="radio" name="radio-chart-type" id="line-radio" value="line"  />
+							<label for="line-radio">Line</label>
+						</div>
+						<div class="ui-block-b">
+							
+							<label for="flip-min">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+						</div>
+						<div class="ui-block-c" style="padding-top: 7px">
+							<select name="flip-min" id="flip-min" data-role="slider">
+								<option value="Self">Self</option>
+								<option value="Compare">Compare</option>
+							</select>
+						</div>
+					</fieldset>
+				</div>
+				
+			</div>
+			
+			<input type="button" onClick="displayChart()" value="Chart" id="chartDisplay">
+			
+			<div id="chartdiv" style="height:400px;width:300px; "></div>
+			
+        </div>
+ 
+        <div data-role="footer" data-position="fixed">
+            <h3>&copy; UNO Civil & Eng</h3>
+        </div>
+    </div>
+	
+	<!--Emissions Page-->
+<div data-role="page" id="Emissions">
+        <div data-role="header" style="overflow:hidden;">
+			<h1>Emissions</h1>
+			<a href="#" data-icon="gear" class="ui-btn-right">Options</a>
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#Consumption">Consumption</a></li>
+					<li><a href="#">Emissions</a></li>
+					<li><a href="#Water">Water Discharge</a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="content">
+			<div data-role="fieldcontain">
+				<label for="port-name" class="select">Port Name</label>
+				<select name="port-name" id="port-name">
+					<option value="A">Port A</option>
+					<option value="B">Port B</option>
+					<option value="C">Port C</option>
+					<option value="D">Port D</option>
+				</select>
+				<label for="category" class="select">Category</label>
+				<select name="category" id="category">
+					<option value="Electricity">Electricity</option>
+					<option value="Water">Water</option>
+					<option value="Diesel">Diesel</option>
+					<option value="Gasoline">Gasoline</option>
+				</select>
+				<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<input type="date">
+					</div>
+					<div class="ui-block-b">
+						<input type="date">
+					</div>
+				</div>
+				<div class="ui-grid-b" data-role="fieldcontain" align="center">
+					<fieldset data-role="controlgroup" data-type="horizontal" >
+						<div class="ui-block-a">
+							<input type="radio" name="radio-chart-type" id="bar-radio" value="bar" checked="checked" />
+							<label for="bar-radio">Bar</label>
+
+							<input type="radio" name="radio-chart-type" id="line-radio" value="line"  />
+							<label for="line-radio">Line</label>
+						</div>
+						<div class="ui-block-b">
+							
+							<label for="flip-min">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+						</div>
+						<div class="ui-block-c" style="padding-top: 7px">
+							<select name="flip-min" id="flip-min" data-role="slider">
+								<option value="Self">Self</option>
+								<option value="Compare">Compare</option>
+							</select>
+						</div>
+					</fieldset>
+				</div>
+				
+			</div>
+			
+			<input type="button" onClick="displayChart()" value="Chart" id="chartDisplay">
+			
+			<div id="chartdiv" style="height:400px;width:300px; "></div>
+			
+        </div>
+ 
+        <div data-role="footer" data-position="fixed">
+            <h3>&copy; UNO Civil & Eng</h3>
+        </div>
+    </div>
+
+<!--Water Discharge Page-->
+
+
+<div data-role="page" id="Water">
+        <div data-role="header" style="overflow:hidden;">
+			<h1>Water Discharge</h1>
+			<a href="#" data-icon="gear" class="ui-btn-right">Options</a>
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#Consumption">Consumption</a></li>
+					<li><a href="#Emissions">Emissions</a></li>
+					<li><a href="#">Water Discharge</a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="content">
+			<div data-role="fieldcontain">
+				<label for="port-name" class="select">Port Name</label>
+				<select name="port-name" id="port-name">
+					<option value="A">Port A</option>
+					<option value="B">Port B</option>
+					<option value="C">Port C</option>
+					<option value="D">Port D</option>
+				</select>
+				<label for="category" class="select">Category</label>
+				<select name="category" id="category">
+					<option value="Electricity">Electricity</option>
+					<option value="Water">Water</option>
+					<option value="Diesel">Diesel</option>
+					<option value="Gasoline">Gasoline</option>
+				</select>
+				<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<input type="date">
+					</div>
+					<div class="ui-block-b">
+						<input type="date">
+					</div>
+				</div>
+				<div class="ui-grid-b" data-role="fieldcontain" align="center">
+					<fieldset data-role="controlgroup" data-type="horizontal" >
+						<div class="ui-block-a">
+							<input type="radio" name="radio-chart-type" id="bar-radio" value="bar" checked="checked" />
+							<label for="bar-radio">Bar</label>
+
+							<input type="radio" name="radio-chart-type" id="line-radio" value="line"  />
+							<label for="line-radio">Line</label>
+						</div>
+						<div class="ui-block-b">
+							
+							<label for="flip-min">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+						</div>
+						<div class="ui-block-c" style="padding-top: 7px">
+							<select name="flip-min" id="flip-min" data-role="slider">
+								<option value="Self">Self</option>
+								<option value="Compare">Compare</option>
+							</select>
+						</div>
+					</fieldset>
+				</div>
+				
+			</div>
+			
+			<input type="button" onClick="displayChart()" value="Chart" id="chartDisplay">
+			
+			<div id="chartdiv" style="height:400px;width:300px; "></div>
+			
+        </div>
+ 
+        <div data-role="footer" data-position="fixed">
+            <h3>&copy; UNO Civil & Eng</h3>
+        </div>
+    </div>
+
+
+	<script>
+		app.initialize();
+	</script>
+	<!-- Don't touch this! -->
+        <script class="include" type="text/javascript" src="js/jquery.jqplot.min.js"></script>
+ 
+        <!-- Additional plugins go here -->
+ 
+        <script class="include" type="text/javascript" src="js/jqplot.barRenderer.min.js"></script>
+        <script class="include" type="text/javascript" src="js/jqplot.pieRenderer.min.js"></script>
+ 
+        <script class="include" type="text/javascript" src="js/jqplot.categoryAxisRenderer.min.js"></script>
+        <script class="include" type="text/javascript" src="js/jqplot.pointLabels.min.js"></script>
+ 
+        <!-- End additional plugins -->
+</body>
+</html>
