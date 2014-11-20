@@ -25,6 +25,31 @@ var app = {
     }
 };
 
+function webServiceTest()
+        {
+			var jsonText = JSON.stringify({UserName : 'vvangari',PassWord :'Munn@963'});
+			$.ajax({
+                type: "POST",
+                url: "http://thekbsystems.com/WorldPorts-SustainabilityForum/UserDetails.asmx/ValidateUser", // add web service Name and web service Method Name
+                data: jsonText,  //web Service method Parameter Name and ,user Input value which in Name Variable.
+				contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response)
+					{
+					if(response.d=="Success")
+						{
+							changePage("#Consumption");
+							window.localStorage["userId"] = response;
+						}
+					},
+                error: function (xhr, ajaxOptions, thrownError)
+					{
+						alert(xhr.status);
+						alert(thrownError);
+					}
+            });
+        }
+		
 function displayChart() {
 var chartType = $('input:radio[name=radio-chart-type]:checked').val();
 if(chartType == "line")
@@ -91,25 +116,26 @@ function handleLogin() {
 	//navigator.notification.alert('HI',alertDismissed,'HIT SUCCESS','DONE');
     console.log("click");
     if(u != '' && p!= '') {
+		var jsonText = JSON.stringify({UserName : u,PassWord :p});
         $.ajax({
-			type: 'GET',
-			data:{userName:u, userPassword:p},
-			dataType : 'json',
-			url : "http://184.186.11.173:8080/testapp/login.php",
-			//contentType: 'application/json; charset=utf-8',
-			crossDomain: true,
-			async: false,
-			success: function(data){
-				if(data.success == true){
-					//alert("login successful");
-					changePage("#Consumption");
-					window.localStorage["userId"] = data;
-					//location.href = "schedule.html";
-				}else{
-					alert("failed login");
-					//location.href = "index.html";
-				}
-			},
+			type: "POST",
+			url: "http://thekbsystems.com/WorldPorts-SustainabilityForum/UserDetails.asmx/ValidateUser", // add web service Name and web service Method Name
+			data: jsonText,  //web Service method Parameter Name and ,user Input value which in Name Variable.
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: function (response)
+				{
+				if(response.d=="Success")
+					{
+						changePage("#Consumption");
+						window.localStorage["userId"] = response;
+					}
+					else
+					{
+						alert("failed login");
+						//location.href = "index.html";
+					}
+				},
 			error: function(xhr, textStatus, error){
 				console.log(xhr.statusText);
 				console.log(textStatus);

@@ -6,12 +6,11 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>Auth Demo</title>
     
-    <script type="text/javascript" charset="utf-8" src="js/phonegap-1.2.0.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/index.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-	<script language="javascript" type="text/javascript" src="jquery.jqplot.min.js"></script>
+	<script language="javascript" type="text/javascript" src="js/jquery.jqplot.min.js"></script>
 	<link class="include" rel="stylesheet" type="text/css" href="css/jquery.jqplot.min.css" />
 	
 
@@ -53,7 +52,7 @@
 
 
 <div data-role="page" data-theme="b" id="Consumption">
-        <div data-role="header" style="overflow:hidden;">
+        <div data-role="header" style="overflow:hidden;" data-add-back-btn="true" data-back-btn-text="Go back" data-back-btn-theme="b">
 			<h1>World Ports</h1>
 			<a href="#" data-icon="gear" class="ui-btn-right">Options</a>
 			<div data-role="navbar">
@@ -66,14 +65,14 @@
 		</div>
 		<div data-role="content">
 			<div data-role="fieldcontain">
-				<label for="port-name" class="select">Port Name</label>
+				<label for="port-name" class="select" align="center">Port Name</label>
 				<select name="port-name" id="port-name">
 					<option value="A">Port A</option>
 					<option value="B">Port B</option>
 					<option value="C">Port C</option>
 					<option value="D">Port D</option>
 				</select>
-				<label for="category" class="select">Category</label>
+				<label for="category" class="select" align="center">Category</label>
 				<select name="category" id="category">
 					<option value="Electricity">Electricity</option>
 					<option value="Water">Water</option>
@@ -82,16 +81,18 @@
 				</select>
 				<div class="ui-grid-a">
 					<div class="ui-block-a">
-						<input type="date">
+						<label for="fromDate" align="center">From</label>
+						<input id="fromDate" type="date">
 					</div>
-					<div class="ui-block-b">
-						<input type="date">
+					<div class="ui-block-b" align="center">
+						<label for="toDate">To</label>
+						<input id="toDate" type="date">
 					</div>
 				</div>
 				<div class="ui-grid-b" data-role="fieldcontain" align="center">
 					<fieldset data-role="controlgroup" data-type="horizontal" >
 						<div class="ui-block-a">
-							<input type="radio" name="radio-chart-type" id="bar-radio" value="bar" checked="checked" />
+							<input type="radio" name="radio-chart-type" id="bar-radio" checked="checked">
 							<label for="bar-radio">Bar</label>
 
 							<input type="radio" name="radio-chart-type" id="line-radio" value="line"  />
@@ -112,7 +113,10 @@
 				
 			</div>
 			
-			<input type="button" onClick="displayChart()" value="Chart" id="chartDisplay">
+				<button onClick="displayChart()" value="Chart" class="ui-btn ui-shadow ui-corner-all ui-icon-home" id="chartDisplay">Chart</button>
+				<button onClick="webServiceTest()" value="Web Service" class="ui-btn ui-shadow ui-corner-all ui-icon-home" id="webServiceTest">Web Service</button>
+				
+				
 			
 			<div id="chartdiv" style="height:400px;width:300px; "></div>
 			
