@@ -7,26 +7,48 @@
     <title>Auth Demo</title>
     
     <script type="text/javascript" charset="utf-8" src="js/index.js"></script>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="themes/bluevoilet.min.css" />
+	<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	
 	<script language="javascript" type="text/javascript" src="js/jquery.jqplot.min.js"></script>
 	<link class="include" rel="stylesheet" type="text/css" href="css/jquery.jqplot.min.css" />
+	
+	<!-- Ignite UI Required Combined CSS Files -->
+    <link href="http://cdn-na.infragistics.com/igniteui/2014.2/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+    <link href="http://cdn-na.infragistics.com/igniteui/2014.2/latest/css/structure/infragistics.css" rel="stylesheet" />
+    
+    <!--CSS file specific for chart styling -->
+    <link href="http://cdn-na.infragistics.com/igniteui/2014.2/latest/css/structure/modules/infragistics.ui.chart.css" rel="stylesheet" />
+
+    <script src="http://modernizr.com/downloads/modernizr-latest.js"></script>
+    
+	
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="http://cdn-na.infragistics.com/igniteui/2014.2/latest/js/infragistics.core.js"></script>
+    <script src="http://cdn-na.infragistics.com/igniteui/2014.2/latest/js/infragistics.dv.js"></script>
+	<script src="http://cdn-na.infragistics.com/igniteui/2014.2/latest/js/infragistics.lob.js"></script>
+
+	
 	
 
 </head>
 
 <body>
     
-<div id="loginPage" data-role="page">
+<div data-theme="b" id="loginPage" data-role="page">
 
     <div data-role="header">
-        <h1>Decision Support System</h1>
+        
     </div>
 	
 	
 
-    <div data-role="content">    
+    <div data-role="content">   
+		<h1 align="center">World Ports </br>&</br> Sustainability</h1>
 
         <form id="loginForm">
         <div data-role="fieldcontain" class="ui-hide-label">
@@ -51,7 +73,7 @@
 
 
 
-<div data-role="page" data-theme="b" id="Consumption">
+<div data-role="page" data-theme="a" id="Consumption">
         <div data-role="header" style="overflow:hidden;" data-add-back-btn="true" data-back-btn-text="Go back" data-back-btn-theme="b">
 			<h1>World Ports</h1>
 			<a href="#" data-icon="gear" class="ui-btn-right">Options</a>
@@ -65,60 +87,102 @@
 		</div>
 		<div data-role="content">
 			<div data-role="fieldcontain">
-				<label for="port-name" class="select" align="center">Port Name</label>
-				<select name="port-name" id="port-name">
-					<option value="A">Port A</option>
-					<option value="B">Port B</option>
-					<option value="C">Port C</option>
-					<option value="D">Port D</option>
+				<label for="conPort-name" class="select" align="center">Port Name</label>
+				<select name="conPort-name" id="conPort-name">
+				<option>Choose Port</option>
 				</select>
-				<label for="category" class="select" align="center">Category</label>
-				<select name="category" id="category">
-					<option value="Electricity">Electricity</option>
-					<option value="Water">Water</option>
-					<option value="Diesel">Diesel</option>
-					<option value="Gasoline">Gasoline</option>
+				<div id="conOtherPorts">
+				</div>
+				<label for="conCategory" class="select" align="center">Category</label>
+				<select name="conCategory" id="conCategory">
+				<option>Choose Category</option>
 				</select>
 				<div class="ui-grid-a">
 					<div class="ui-block-a">
-						<label for="fromDate" align="center">From</label>
-						<input id="fromDate" type="date">
+						<label for="confromDate" align="center">From</label>
+						<input id="confromDate" type="date">
 					</div>
 					<div class="ui-block-b" align="center">
-						<label for="toDate">To</label>
-						<input id="toDate" type="date">
+						<label for="contoDate">To</label>
+						<input id="contoDate" type="date">
 					</div>
 				</div>
-				<div class="ui-grid-b" data-role="fieldcontain" align="center">
+				<div class="ui-grid-b" align="center">
 					<fieldset data-role="controlgroup" data-type="horizontal" >
-						<div class="ui-block-a">
-							<input type="radio" name="radio-chart-type" id="bar-radio" checked="checked">
-							<label for="bar-radio">Bar</label>
-
-							<input type="radio" name="radio-chart-type" id="line-radio" value="line"  />
-							<label for="line-radio">Line</label>
+						<div class="ui-block-a" style="padding-top: 12px">
+							<label for="conflipComp" align="center" style=" font-weight: bold;font-family:Trebuchet MS;font-size: 120%;">Toggle to compare&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
 						</div>
-						<div class="ui-block-b">
-							
-							<label for="flip-min">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-						</div>
-						<div class="ui-block-c" style="padding-top: 7px">
-							<select name="flip-min" id="flip-min" data-role="slider">
-								<option value="Self">Self</option>
-								<option value="Compare">Compare</option>
-							</select>
+						<div class="ui-block-b" style="padding-top: 7px">
+							<div  class="containing-element">
+								<select name="con-flip-min" id="conflipComp" data-role="slider">
+									<option value="Self">Self</option>
+									<option value="Compare">Compare</option>
+								</select>
+							</div>
 						</div>
 					</fieldset>
 				</div>
+				<div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </div>
 				
-			</div>
-			
-				<button onClick="displayChart()" value="Chart" class="ui-btn ui-shadow ui-corner-all ui-icon-home" id="chartDisplay">Chart</button>
-				<button onClick="webServiceTest()" value="Web Service" class="ui-btn ui-shadow ui-corner-all ui-icon-home" id="webServiceTest">Web Service</button>
-				
-				
-			
-			<div id="chartdiv" style="height:400px;width:300px; "></div>
+				<script type="text/javascript" src="http://www.igniteui.com/data-files/uk-france-population.js"></script>
+
+    
+    <style type="text/css">
+       
+        .labelCol
+        {
+            width: 110px;
+        }
+        
+       .slider
+        {
+            width: 80px;
+            height: 10px;
+            margin: 10px;
+        }
+        .selectionOptions
+        {
+            margin-bottom: 10px;   
+        }
+
+        td { vertical-align: top; }
+        .chartElement {
+            padding-bottom: 20px;
+        }
+    </style>
+    
+
+    <div class="selectionOptions" align="center">
+       Series type
+        <select id="seriesType">
+            <option value="area">Area</option>
+            <option value="column">Column</option>
+            <option value="line" selected="selected">Line</option>
+            <option value="splineArea">Spline Area</option>
+            <option value="spline">Spline</option>
+            <option value="stepArea">Step Area</option>
+            <option value="stepLine">Step Line</option>
+            <option value="waterfall">Waterfall</option>
+            <option value="point">Point</option>
+        </select>
+		</div>
+	</div>
+	<button onClick="displayChart()" value="Chart" class="ui-btn ui-shadow ui-corner-all ui-icon-home" id="conchartDisplay">Chart</button>
+         
+    
+    <table>
+        <tr>
+            <td id="chart" class="chartElement" style="width:80% height:50%"/>      
+            
+        </tr>
+		<tr>
+			<td id="lineLegend" style="float: center"/>
+		</tr>
+    </table>
+		<div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </div>
+		<!--div id="conHorizontalZoomSlider"><div-->
+		<input type="range" name="slider" id="horizontalZoomSlider" value="1" min="1" max="100"/>
+		
 			
         </div>
  
@@ -190,7 +254,7 @@
 			
 			<input type="button" onClick="displayChart()" value="Chart" id="chartDisplay">
 			
-			<div id="chartdiv" style="height:400px;width:300px; "></div>
+			<canvas id="chartdiv" style="height:400px;width:300px; "></canvas>
 			
         </div>
  
@@ -287,6 +351,14 @@
  
         <script class="include" type="text/javascript" src="js/jqplot.categoryAxisRenderer.min.js"></script>
         <script class="include" type="text/javascript" src="js/jqplot.pointLabels.min.js"></script>
+		
+		<script type="text/javascript" src="js/jqplot.cursor.min.js"></script>
+		<script type="text/javascript" src="js/jqplot.dateAxisRenderer.min.js"></script>
+		
+		<script type="text/javascript" src="js/jqplot.logAxisRenderer.min.js"></script>
+		<script type="text/javascript" src="js/jqplot.canvasTextRenderer.min.js"></script>
+		<script type="text/javascript" src="js/jqplot.canvasAxisTickRenderer.min.js"></script>
+		<script type="text/javascript" src="js/jqplot.ohlcRenderer.min.js"></script>
  
         <!-- End additional plugins -->
 </body>

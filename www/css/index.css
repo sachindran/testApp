@@ -116,5 +116,7 @@ h1 {
 
 .containing-element .ui-slider-switch { width: 9em }
 
+.containing-element .ui-slider-switch { width: 10em !important }
+
 
 .inputWithImge { width:50px; border:none; margin-right:5px;}
