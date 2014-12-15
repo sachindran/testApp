@@ -42,8 +42,8 @@ var app = {
 };
 function hideOtherPorts()
 {
-	$("#otherPortsConDiv").remove()
-	
+	$("#otherPortsConDiv").remove();
+	$("#graphCompOptions").remove()
 }
 function getPortNames()
 {
@@ -323,7 +323,7 @@ function GetAllOtherPortNames()
 					if(response.d)
 						{
 							var data = JSON.parse(response.d);
-							
+							//Section to append Other Ports Dropdown
 							var label = document.createElement('label');
 							label.setAttribute("name","otherPortsLabel");
 							label.setAttribute("id","otherPortsLabel");
@@ -350,12 +350,118 @@ function GetAllOtherPortNames()
 									$("#otherPortsSel").append('<option value='+element.portId+'>'+element.portName+'</option>');
 								});
 							$("#otherPortsSel").trigger("create");
-							/*$.each(data, function(index, element) 	{
-									$("#conCategory").append('<option value='+element.categoryId+'>'+element.categoryName+'</option>');
-								});*/
-							//alert(response.d.portId);
-							//changePage("#Consumption");
-							//window.localStorage["userId"] = response;
+							
+							//Section to append Graph Compare Options
+							var min = document.createElement('input');
+							min.setAttribute("name", "graphCompOptions-min");
+							min.setAttribute("id", "graphCompOptions-min");
+							min.setAttribute("type", "checkbox");
+							min.setAttribute("value", "min");
+							var graphCompOptionsMinlLbl = document.createElement('label');
+							graphCompOptionsMinlLbl.setAttribute("name","graphCompOptions-minlLbl");
+							graphCompOptionsMinlLbl.setAttribute("id","graphCompOptions-minlLbl");
+							graphCompOptionsMinlLbl.setAttribute("for","graphCompOptions-min");
+							graphCompOptionsMinlLbl.setAttribute("align","center");
+							
+							var max = document.createElement('input');
+							max.setAttribute("name", "graphCompOptions-max");
+							max.setAttribute("id", "graphCompOptions-max");
+							max.setAttribute("type", "checkbox");
+							max.setAttribute("value", "max");
+							var graphCompOptionsMaxlLbl = document.createElement('label');
+							graphCompOptionsMaxlLbl.setAttribute("name","graphCompOptions-maxlLbl");
+							graphCompOptionsMaxlLbl.setAttribute("id","graphCompOptions-maxlLbl");
+							graphCompOptionsMaxlLbl.setAttribute("for","graphCompOptions-max");
+							graphCompOptionsMaxlLbl.setAttribute("align","center");
+							
+							var avg = document.createElement('input');
+							avg.setAttribute("name", "graphCompOptions-avg");
+							avg.setAttribute("id", "graphCompOptions-avg");
+							avg.setAttribute("type", "checkbox");
+							avg.setAttribute("value", "avg");
+							var graphCompOptionsAvglLbl = document.createElement('label');
+							graphCompOptionsAvglLbl.setAttribute("name","graphCompOptions-avglLbl");
+							graphCompOptionsAvglLbl.setAttribute("id","graphCompOptions-avglLbl");
+							graphCompOptionsAvglLbl.setAttribute("for","graphCompOptions-avg");
+							graphCompOptionsAvglLbl.setAttribute("align","center");
+							
+							var conCompDiv = document.createElement('div');
+							conCompDiv.setAttribute("name","graphCompOptions");
+							conCompDiv.setAttribute("id","graphCompOptions");
+							conCompDiv.setAttribute("align","center");
+							
+							var table = document.createElement('table');
+							table.setAttribute("id","graphCompOptions-table");
+							
+							var tr = [];
+							var td = new Array(2);
+							for(i = 0; i<2; i++)
+							{
+								td[i] = new Array(3);
+								tr[i] = document.createElement('tr');   
+								tr[i].setAttribute("id","graphCompOptions-tr"+i);
+								for(j=0; j<3; j++)
+								{
+									td[i][j] = document.createElement('td');
+									td[i][j].setAttribute("id","graphCompOptions-td"+i+j);
+								}
+							}
+							
+							$("#conGraphCompOptions").append(conCompDiv);
+							$("#conGraphCompOptions").trigger("create");
+							$("#graphCompOptions").append(table);
+							//$("#graphCompOptions").trigger("create");
+							for(i = 0; i<2; i++)
+							{
+								$("#graphCompOptions-table").append(tr[i]);
+								
+								for(j=0; j<3; j++)
+								{
+									$("#graphCompOptions-tr"+i).append(td[i][j]);
+									if(i==0)
+									{
+										if(j==0)
+										{
+											$("#graphCompOptions-td"+i+j).append(graphCompOptionsMinlLbl);
+											$("#graphCompOptions-minlLbl").append("Min");
+											$("#graphCompOptions-minlLbl").trigger("create");
+										}
+										else if(j==1)
+										{
+											$("#graphCompOptions-td"+i+j).append(graphCompOptionsMaxlLbl);
+											$("#graphCompOptions-maxlLbl").append("Max");
+											$("#graphCompOptions-maxlLbl").trigger("create");
+										}
+										else
+										{
+											$("#graphCompOptions-td"+i+j).append(graphCompOptionsAvglLbl);
+											$("#graphCompOptions-avglLbl").append("Avg");
+											$("#graphCompOptions-avglLbl").trigger("create");
+										}
+									}
+									else
+									{
+										if(j==0)
+										{
+											$("#graphCompOptions-td"+i+j).append(min);
+											$("#graphCompOptions-min").trigger("create");
+										}
+										else if(j==1)
+										{
+											$("#graphCompOptions-td"+i+j).append(max);
+											$("#graphCompOptions-max").trigger("create");
+										}
+										else
+										{
+											$("#graphCompOptions-td"+i+j).append(avg);
+											$("#graphCompOptions-avg").trigger("create");
+										}
+									}
+									$("#graphCompOptions-td"+i+j).trigger("create");
+								}
+								$("#graphCompOptions-tr"+i).trigger("create");
+							}
+							$("#graphCompOptions-table").trigger("create");		
 						}
 					},
                 error: function (xhr, ajaxOptions, thrownError)
@@ -430,7 +536,14 @@ function igniteChart(rawData,portIds,numOfPorts,catId)
 			$("#horizontalZoomSlider").val(1);
 			$("#horizontalZoomSlider").slider('refresh');
 			
+			var tempNumOfPorts = numOfPorts;
 			var graphData = [];
+			var avgData = [];
+			var maxData = [];
+			var minData = [];
+			var avgSeriesSet = false;
+			var minSeriesSet = false;
+			var maxSeriesSet = false;
 			var avg = rawData[0].Column1;
 			var monthsCount = (rawData.length)/numOfPorts;
 			var startDate = getMonth(rawData[0].Column2)+"-"	+(rawData[0].year).toString();
@@ -471,6 +584,8 @@ function igniteChart(rawData,portIds,numOfPorts,catId)
 				for(i=0;i<monthsCount;i++)
 					{
 						graphData[i] = {Date: getMonth(rawData[i].Column2)+"-"	+(rawData[i].year).toString()};
+						maxData[i] =  rawData[i].Column1;
+						minData[i] =  rawData[i].Column1;
 					}
 				i=0;
 				while(i<rawData.length)
@@ -478,6 +593,17 @@ function igniteChart(rawData,portIds,numOfPorts,catId)
 					var portValue = "Port"+rawData[i].portId+"Value";
 					for(j=0;j<monthsCount;j++)
 					{
+						if(i>=monthsCount)
+						{
+							if(maxData[j]<rawData[i].Column1)
+							{
+								maxData[j] =  rawData[i].Column1;
+							}
+							if(minData[j]>rawData[i].Column1)
+							{
+								minData[j] =  rawData[i].Column1;
+							}
+						}
 						graphData[j][portValue] = rawData[i].Column1;
 						if(avg>rawData[i].Column1)
 						{
@@ -486,6 +612,12 @@ function igniteChart(rawData,portIds,numOfPorts,catId)
 						i++;
 					}
 				}
+				for(j=0;j<monthsCount;j++)
+					{
+						graphData[j]["min"] = minData[j];
+						graphData[j]["max"] = maxData[j];
+						graphData[j]["avg"] = (maxData[j] + minData[j])/2;
+					}
 				endDate = getMonth(rawData[i-1].Column2)+"-"	+(rawData[i-1].year).toString()
 			}
 			var series = [];
@@ -514,6 +646,55 @@ function igniteChart(rawData,portIds,numOfPorts,catId)
 								isHighlightingEnabled: true,
 								thickness: thickness
 							}
+			}
+			i--;
+			if($("#graphCompOptions-max").is(':checked'))
+			{
+				series[++i]= {
+							name: "Maximum",
+								type: $("#seriesType").val(),
+								title: "Max",
+								xAxis: "DateAxis",
+								yAxis: "CatAxis",
+								valueMemberPath: "max",
+								markerType: marker,
+                    			isTransitionInEnabled: true,
+								isHighlightingEnabled: true,
+								thickness: thickness
+							}
+				maxSeriesSet = true;
+			}
+			if($("#graphCompOptions-min").is(':checked'))
+			{
+				series[++i]= {
+							name: "Minimum",
+								type: $("#seriesType").val(),
+								title: "Min",
+								xAxis: "DateAxis",
+								yAxis: "CatAxis",
+								valueMemberPath: "min",
+								markerType: marker,
+                    			isTransitionInEnabled: true,
+								isHighlightingEnabled: true,
+								thickness: thickness
+							}
+				minSeriesSet = true;
+			}
+			if($("#graphCompOptions-avg").is(':checked'))
+			{
+				series[++i]= {
+							name: "Average",
+								type: $("#seriesType").val(),
+								title: "Avg",
+								xAxis: "DateAxis",
+								yAxis: "CatAxis",
+								valueMemberPath: "avg",
+								markerType: marker,
+                    			isTransitionInEnabled: true,
+								isHighlightingEnabled: true,
+								thickness: thickness
+							}
+				avgSeriesSet = true;
 			}
 			var data = [
                 { "CountryName": "China", "Pop1995": 1216, "Pop2005": 1297, "Pop2015": 1361, "Pop2025": 1394 },
@@ -580,12 +761,12 @@ function igniteChart(rawData,portIds,numOfPorts,catId)
                 if (seriesType == "point") {
                     marker = "circle";
                 }
-				for(i=0;i<numOfPorts;i++)
+				for(i=0;i<tempNumOfPorts;i++)
 				{
 					var portId = portIds[i];
 					var portName;
 					var portValue = "Port"+portId+"Value";
-					if(i!=(numOfPorts-1))
+					if(i!=(tempNumOfPorts-1))
 					{
 						portName = $("#otherPortsSel option[value='"+portId+"']").text();
 					}
@@ -593,7 +774,34 @@ function igniteChart(rawData,portIds,numOfPorts,catId)
 					{
 						portName = $("#conPort-name option[value='"+portId+"']").text();
 					}
-					$("#chart").igDataChart("option", "series", [{ name: portName,remove: true}]);
+					try
+					{
+						$("#chart").igDataChart("option", "series", [{ name: portName,remove: true}]);
+					}
+					catch(err)
+					{
+						portName = $("#conPort-name option[value='"+portId+"']").text();
+						//$("#chart").igDataChart("option", "series", [{ name: portName,remove: true}]);
+						igniteChart(rawData,portIds,(numOfPorts-1),catId)
+					}
+				}
+				if(numOfPorts>1)
+				{
+					if(maxSeriesSet)
+					{
+						$("#chart").igDataChart("option", "series", [{ name: "Maximum",remove: true}]);
+						maxSeriesSet = false;
+					}
+					if(minSeriesSet)
+					{
+						$("#chart").igDataChart("option", "series", [{ name: "Minimum",remove: true}]);
+						minSeriesSet = false;
+					}
+					if(avgSeriesSet)
+					{
+						$("#chart").igDataChart("option", "series", [{ name: "Average",remove: true}]);
+						avgSeriesSet = false;
+					}
 				}
 				for(i=0;i<numOfPorts;i++)
 				{
@@ -621,6 +829,54 @@ function igniteChart(rawData,portIds,numOfPorts,catId)
 								thickness: thickness
 								}]);
 				}
+			if($("#graphCompOptions-max").is(':checked'))
+			{
+				$("#chart").igDataChart("option", "series", [{
+							name: "Maximum",
+								type: $(this).val(),
+								title: "Max",
+								xAxis: "DateAxis",
+								yAxis: "CatAxis",
+								valueMemberPath: "max",
+								markerType: marker,
+                    			isTransitionInEnabled: true,
+								isHighlightingEnabled: true,
+								thickness: thickness
+							}]);
+				maxSeriesSet = true;
+			}
+			if($("#graphCompOptions-min").is(':checked'))
+			{
+				$("#chart").igDataChart("option", "series", [{
+							name: "Minimum",
+								type: $(this).val(),
+								title: "Min",
+								xAxis: "DateAxis",
+								yAxis: "CatAxis",
+								valueMemberPath: "min",
+								markerType: marker,
+                    			isTransitionInEnabled: true,
+								isHighlightingEnabled: true,
+								thickness: thickness
+							}]);
+				minSeriesSet = true;
+			}
+			if($("#graphCompOptions-avg").is(':checked'))
+			{
+				$("#chart").igDataChart("option", "series", [{
+							name: "Average",
+								type: $(this).val(),
+								title: "Avg",
+								xAxis: "DateAxis",
+								yAxis: "CatAxis",
+								valueMemberPath: "avg",
+								markerType: marker,
+                    			isTransitionInEnabled: true,
+								isHighlightingEnabled: true,
+								thickness: thickness
+							}]);
+				avgSeriesSet = true;
+			}	
 			$("#chart").igDataChart("resetZoom");
             });
 			$("#horizontalZoomSlider").change(function (e) {
