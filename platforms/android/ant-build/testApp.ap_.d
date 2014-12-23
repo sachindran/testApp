@@ -262,7 +262,11 @@ B:\Android_workspace\phonegap\testApp\platforms\android\assets\www\css\themes\jq
 B:\Android_workspace\phonegap\testApp\platforms\android\assets\www\css\themes\jquery-mobile-theme-142706-0 v2\themes\images\icons-png\user-white.png \
 B:\Android_workspace\phonegap\testApp\platforms\android\assets\www\css\themes\jquery-mobile-theme-142706-0 v2\themes\images\icons-png\video-black.png \
 B:\Android_workspace\phonegap\testApp\platforms\android\assets\www\css\themes\jquery-mobile-theme-142706-0 v2\themes\images\icons-png\video-white.png \
+B:\Android_workspace\phonegap\testApp\platforms\android\assets\www\img\bgImg.jpg \
+B:\Android_workspace\phonegap\testApp\platforms\android\assets\www\img\bgImg.png \
+B:\Android_workspace\phonegap\testApp\platforms\android\assets\www\img\bgImg1.jpg \
 B:\Android_workspace\phonegap\testApp\platforms\android\assets\www\img\logo.png \
+B:\Android_workspace\phonegap\testApp\platforms\android\assets\www\img\orig.jpg \
 B:\Android_workspace\phonegap\testApp\platforms\android\assets\www\js\cordova.js \
 B:\Android_workspace\phonegap\testApp\platforms\android\assets\www\js\index.js \
 B:\Android_workspace\phonegap\testApp\platforms\android\assets\www\js\index1.js \

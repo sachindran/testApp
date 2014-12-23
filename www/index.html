@@ -74,18 +74,17 @@
 
 
 <div data-role="page" data-theme="b" id="Consumption">
-        <div data-role="header" style="overflow:hidden;" data-add-back-btn="true" data-back-btn-text="Go back" data-back-btn-theme="b">
+        <div data-role="header" style="overflow:hidden;">
 			<h1>World Ports</h1>
-			<a href="#" data-icon="gear" class="ui-btn-right">Options</a>
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#">Consumption</a></li>
-					<li><a href="#Emissions">Emissions</a></li>
-					<li><a href="#Water">Water Discharge</a></li>
+					<li><a href="#" class="ui-state-persist" class="ui-btn-active">Consumption</a></li>
+					<li><a href="#Emissions" data-transition="pop">Emissions</a></li>
+					<li><a href="#Waste" data-transition="pop">Waste Discharge</a></li>
 				</ul>
 			</div>
 		</div>
-		<div data-role="content">
+		<div data-role="content"  style="background-image:url('img/bgImg.jpg');">
 			<div data-role="fieldcontain">
 				<label for="conPort-name" class="select" align="center">Port Name</label>
 				<select name="conPort-name" id="conPort-name">
@@ -195,141 +194,243 @@
 	<!--Emissions Page-->
 <div data-role="page" id="Emissions">
         <div data-role="header" style="overflow:hidden;">
-			<h1>Emissions</h1>
-			<a href="#" data-icon="gear" class="ui-btn-right">Options</a>
+			<h1>World Ports</h1>
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#Consumption">Consumption</a></li>
-					<li><a href="#">Emissions</a></li>
-					<li><a href="#Water">Water Discharge</a></li>
+					<li><a href="#Consumption" data-transition="pop">Consumption</a></li>
+					<li><a href="#" class="ui-state-persist" class="ui-btn-active">Emissions</a></li>
+					<li><a href="#Waste" data-transition="pop">Waste Discharge</a></li>
 				</ul>
 			</div>
 		</div>
-		<div data-role="content">
+		<div data-role="content" style="background-image:url('img/bgImg.jpg');">
 			<div data-role="fieldcontain">
-				<label for="port-name" class="select">Port Name</label>
-				<select name="port-name" id="port-name">
-					<option value="A">Port A</option>
-					<option value="B">Port B</option>
-					<option value="C">Port C</option>
-					<option value="D">Port D</option>
+				<label for="emiPort-name" class="select" align="center">Port Name</label>
+				<select name="emiPort-name" id="emiPort-name">
+				<option>Choose Port</option>
 				</select>
-				<label for="category" class="select">Category</label>
-				<select name="category" id="category">
-					<option value="Electricity">Electricity</option>
-					<option value="Water">Water</option>
-					<option value="Diesel">Diesel</option>
-					<option value="Gasoline">Gasoline</option>
+				<div id="emiOtherPorts">
+				</div>
+				<label for="emiCategory" class="select" align="center">Category</label>
+				<select name="emiCategory" id="emiCategory">
+				<option>Choose Category</option>
+				</select>
+				<label for="emiSubCategory" class="select" align="center">Sub Category</label>
+				<select name="emiSubCategory" id="emiSubCategory">
+				<option>Choose Sub Category</option>
 				</select>
 				<div class="ui-grid-a">
 					<div class="ui-block-a">
-						<input type="date">
+						<label for="emifromDate" align="center">From</label>
+						<input id="emifromDate" type="date">
 					</div>
-					<div class="ui-block-b">
-						<input type="date">
+					<div class="ui-block-b" align="center">
+						<label for="emitoDate">To</label>
+						<input id="emitoDate" type="date">
 					</div>
 				</div>
-				<div class="ui-grid-b" data-role="fieldcontain" align="center">
+				<div class="ui-grid-b" align="center">
 					<fieldset data-role="controlgroup" data-type="horizontal" >
-						<div class="ui-block-a">
-							<input type="radio" name="radio-chart-type" id="bar-radio" value="bar" checked="checked" />
-							<label for="bar-radio">Bar</label>
-
-							<input type="radio" name="radio-chart-type" id="line-radio" value="line"  />
-							<label for="line-radio">Line</label>
+						<div class="ui-block-a" style="padding-top: 12px">
+							<label for="emiflipComp" align="center" style=" font-weight: bold;font-family:Trebuchet MS;font-size: 120%;">Toggle to compare&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
 						</div>
-						<div class="ui-block-b">
-							
-							<label for="flip-min">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-						</div>
-						<div class="ui-block-c" style="padding-top: 7px">
-							<select name="flip-min" id="flip-min" data-role="slider">
-								<option value="Self">Self</option>
-								<option value="Compare">Compare</option>
-							</select>
+						<div class="ui-block-b" style="padding-top: 7px">
+							<div  class="containing-element">
+								<select name="emi-flip-min" id="emiflipComp" data-role="slider">
+									<option value="Self">Self</option>
+									<option value="Compare">Compare</option>
+								</select>
+							</div>
 						</div>
 					</fieldset>
 				</div>
+				<div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </div>
 				
-			</div>
-			
-			<input type="button" onClick="displayChart()" value="Chart" id="chartDisplay">
-			
-			<canvas id="chartdiv" style="height:400px;width:300px; "></canvas>
+				<script type="text/javascript" src="http://www.igniteui.com/data-files/uk-france-population.js"></script>
+
+    
+    <style type="text/css">
+       
+        .labelCol
+        {
+            width: 110px;
+        }
+        
+       .slider
+        {
+            width: 80px;
+            height: 10px;
+            margin: 10px;
+        }
+        .selectionOptions
+        {
+            margin-bottom: 10px;   
+        }
+
+        td { vertical-align: top; }
+        .chartElement {
+            padding-bottom: 20px;
+        }
+    </style>
+    
+	<div id="emiGraphCompOptions">
+	</div>
+    <div class="selectionOptions" align="center">
+       Series type
+        <select id="emiSeriesType">
+            <option value="area">Area</option>
+            <option value="column">Column</option>
+            <option value="line" selected="selected">Line</option>
+            <option value="splineArea">Spline Area</option>
+            <option value="spline">Spline</option>
+            <option value="stepArea">Step Area</option>
+            <option value="stepLine">Step Line</option>
+            <option value="waterfall">Waterfall</option>
+            <option value="point">Point</option>
+        </select>
+		</div>
+	</div>
+	<button onClick="DisplayChartEmiWas('emi')" value="Chart" class="ui-btn ui-shadow ui-corner-all ui-icon-home" id="emichartDisplay">Chart</button>
+         
+    
+    <table>
+        <tr>
+            <td id="emiChart" class="chartElement" style="width:80% height:50%"/>      
+            
+        </tr>
+		<tr>
+			<td id="emiLineLegend" style="float: center"/>
+		</tr>
+    </table>
+		<div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </div>
+		<!--div id="conHorizontalZoomSlider"><div-->
+		<input type="range" name="slider" id="emiHorizontalZoomSlider" value="1" min="1" max="100"/>
+		
 			
         </div>
  
         <div data-role="footer" data-position="fixed">
             <h3>&copy; UNO Civil & Eng</h3>
         </div>
-    </div>
+</div>
 
-<!--Water Discharge Page-->
+<!--Waste Discharge Page-->
 
 
-<div data-role="page" id="Water">
+<div data-role="page" id="Waste">
         <div data-role="header" style="overflow:hidden;">
-			<h1>Water Discharge</h1>
-			<a href="#" data-icon="gear" class="ui-btn-right">Options</a>
+			<h1>Waste Discharge</h1>
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#Consumption">Consumption</a></li>
-					<li><a href="#Emissions">Emissions</a></li>
-					<li><a href="#">Water Discharge</a></li>
+					<li><a href="#Consumption" data-transition="pop">Consumption</a></li>
+					<li><a href="#Emissions" data-transition="pop">Emissions</a></li>
+					<li><a href="#"  class="ui-state-persist" class="ui-btn-active">Waste Discharge</a></li>
 				</ul>
 			</div>
 		</div>
-		<div data-role="content">
+		<div data-role="content" style="background-image:url('img/bgImg.jpg');">
 			<div data-role="fieldcontain">
-				<label for="port-name" class="select">Port Name</label>
-				<select name="port-name" id="port-name">
-					<option value="A">Port A</option>
-					<option value="B">Port B</option>
-					<option value="C">Port C</option>
-					<option value="D">Port D</option>
+				<label for="wasPort-name" class="select" align="center">Port Name</label>
+				<select name="wasPort-name" id="wasPort-name">
+				<option>Choose Port</option>
 				</select>
-				<label for="category" class="select">Category</label>
-				<select name="category" id="category">
-					<option value="Electricity">Electricity</option>
-					<option value="Water">Water</option>
-					<option value="Diesel">Diesel</option>
-					<option value="Gasoline">Gasoline</option>
+				<div id="wasOtherPorts">
+				</div>
+				<label for="wasCategory" class="select" align="center">Category</label>
+				<select name="wasCategory" id="wasCategory">
+				<option>Choose Category</option>
+				</select>
+				<label for="wasSubCategory" class="select" align="center">Sub Category</label>
+				<select name="wasSubCategory" id="wasSubCategory">
+				<option>Choose Sub Category</option>
 				</select>
 				<div class="ui-grid-a">
 					<div class="ui-block-a">
-						<input type="date">
+						<label for="wasfromDate" align="center">From</label>
+						<input id="wasfromDate" type="date">
 					</div>
-					<div class="ui-block-b">
-						<input type="date">
+					<div class="ui-block-b" align="center">
+						<label for="wastoDate">To</label>
+						<input id="wastoDate" type="date">
 					</div>
 				</div>
-				<div class="ui-grid-b" data-role="fieldcontain" align="center">
+				<div class="ui-grid-b" align="center">
 					<fieldset data-role="controlgroup" data-type="horizontal" >
-						<div class="ui-block-a">
-							<input type="radio" name="radio-chart-type" id="bar-radio" value="bar" checked="checked" />
-							<label for="bar-radio">Bar</label>
-
-							<input type="radio" name="radio-chart-type" id="line-radio" value="line"  />
-							<label for="line-radio">Line</label>
+						<div class="ui-block-a" style="padding-top: 12px">
+							<label for="wasflipComp" align="center" style=" font-weight: bold;font-family:Trebuchet MS;font-size: 120%;">Toggle to compare&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
 						</div>
-						<div class="ui-block-b">
-							
-							<label for="flip-min">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-						</div>
-						<div class="ui-block-c" style="padding-top: 7px">
-							<select name="flip-min" id="flip-min" data-role="slider">
-								<option value="Self">Self</option>
-								<option value="Compare">Compare</option>
-							</select>
+						<div class="ui-block-b" style="padding-top: 7px">
+							<div  class="containing-element">
+								<select name="was-flip-min" id="wasflipComp" data-role="slider">
+									<option value="Self">Self</option>
+									<option value="Compare">Compare</option>
+								</select>
+							</div>
 						</div>
 					</fieldset>
 				</div>
+				<div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </div>
 				
-			</div>
-			
-			<input type="button" onClick="displayChart()" value="Chart" id="chartDisplay">
-			
-			<div id="chartdiv" style="height:400px;width:300px; "></div>
+				<script type="text/javascript" src="http://www.igniteui.com/data-files/uk-france-population.js"></script>
+
+    
+    <style type="text/css">
+       
+        .labelCol
+        {
+            width: 110px;
+        }
+        
+       .slider
+        {
+            width: 80px;
+            height: 10px;
+            margin: 10px;
+        }
+        .selectionOptions
+        {
+            margin-bottom: 10px;   
+        }
+
+        td { vertical-align: top; }
+        .chartElement {
+            padding-bottom: 20px;
+        }
+    </style>
+    
+	<div id="wasGraphCompOptions">
+	</div>
+    <div class="selectionOptions" align="center">
+       Series type
+        <select id="wasSeriesType">
+            <option value="area">Area</option>
+            <option value="column">Column</option>
+            <option value="line" selected="selected">Line</option>
+            <option value="splineArea">Spline Area</option>
+            <option value="spline">Spline</option>
+            <option value="stepArea">Step Area</option>
+            <option value="stepLine">Step Line</option>
+            <option value="waterfall">Waterfall</option>
+            <option value="point">Point</option>
+        </select>
+		</div>
+	</div>
+	<button onClick="DisplayChartEmiWas('was')" value="Chart" class="ui-btn ui-shadow ui-corner-all ui-icon-home" id="waschartDisplay">Chart</button>
+         
+    
+    <table>
+        <tr>
+            <td id="wasChart" class="chartElement" style="width:80% height:50%"/>      
+            
+        </tr>
+		<tr>
+			<td id="wasLineLegend" style="float: center"/>
+		</tr>
+    </table>
+		<div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </div>
+		<!--div id="conHorizontalZoomSlider"><div-->
+		<input type="range" name="slider" id="wasHorizontalZoomSlider" value="1" min="1" max="100"/>
+		
 			
         </div>
  
